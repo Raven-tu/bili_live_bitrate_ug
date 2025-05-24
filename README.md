@@ -1,10 +1,8 @@
-# 哔哩哔哩直播显示平均码率
-
-这是一个用户脚本，用于在哔哩哔哩直播页面上显示直播流的平均码率。
+# bili_live_average_bitrate_display
 
 ## 描述
 
-该脚本通过计算一段时间内的平均码率，帮助用户了解当前直播的清晰度和稳定性。
+这是一个猴油脚本，用于在哔哩哔哩直播页面上显示直播流的平均码率。通过计算一段时间内的平均码率，帮助用户了解当前直播的清晰度和稳定性。
 
 ## 功能
 
@@ -13,8 +11,9 @@
 
 ## 安装
 
-1.  确保你的浏览器安装了用户脚本管理器，例如 Tampermonkey (Chrome) 或 Greasemonkey (Firefox)。
-2.  [点击此处](<安装脚本的链接>) 安装脚本。
+- 确保你的浏览器安装了用户脚本管理器，例如 Tampermonkey (Chrome) 或 Greasemonkey (Firefox)。
+- 安装地址：
+  - [GitHub](https://github.com/Raven-tu/bili_live_bitrate_ug/raw/refs/heads/master/dist/bili_live_average_bitrate_display.user.js)
 
 ## 使用方法
 

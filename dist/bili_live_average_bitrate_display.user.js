@@ -4,6 +4,7 @@
 // @version      1.0.0
 // @author       Raven-tu
 // @description  A userscript to display the average bitrate of Bilibili live streams.
+// @license      MIT
 // @icon         https://live.bilibili.com/favicon.ico
 // @match        *://live.bilibili.com/*
 // @connect      live.bilibili.com

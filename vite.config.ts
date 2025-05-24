@@ -35,6 +35,7 @@ export default defineConfig({
           'unsafeWindow',
         ],
         'run-at': 'document-start',
+        'license': 'MIT',
       },
       server: {
         mountGmApi: true,

@@ -13,6 +13,7 @@
 
 - 确保你的浏览器安装了用户脚本管理器，例如 Tampermonkey (Chrome) 或 Greasemonkey (Firefox)。
 - 安装地址：
+  - [greasyfork](https://greasyfork.org/zh-CN/scripts/537141-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E6%98%BE%E7%A4%BA%E5%B9%B3%E5%9D%87%E7%A0%81%E7%8E%87) (推荐)
   - [GitHub](https://github.com/Raven-tu/bili_live_bitrate_ug/raw/refs/heads/master/dist/bili_live_average_bitrate_display.user.js)
 
 ## 使用方法

@@ -5,8 +5,7 @@
   "version": "1.0.0",
   "author": "Raven-tu",
   "description": "A userscript to display the average bitrate of Bilibili live streams.",
-  "repository": {
-  },
+  "repository": {},
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",

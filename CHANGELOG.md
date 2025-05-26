@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/Raven-tu/bili_live_bitrate_ug/compare/v1.0.0...v1.1.0) (2025-05-26)
+
+
+### Features
+
+* 更新码率记录数组最大长度为30并在计算平均码率时考虑缓冲长度 ([4980239](https://github.com/Raven-tu/bili_live_bitrate_ug/commit/4980239fbc729563bd5cff6869540b705b0a14e4))
+
 ## 1.0.0 (2025-05-24)
 
 

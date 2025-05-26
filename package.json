@@ -2,7 +2,7 @@
   "name": "bili_live_average_bitrate_display",
   "displayName": "哔哩哔哩直播显示平均码率",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Raven-tu",
   "description": "A userscript to display the average bitrate of Bilibili live streams.",
   "repository": {},

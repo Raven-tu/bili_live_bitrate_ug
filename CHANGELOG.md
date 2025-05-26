@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/Raven-tu/bili_live_bitrate_ug/compare/v1.1.0...v1.1.1) (2025-05-26)
+
+
+### Features
+
+* 重构视频码率监控逻辑，优化码率记录和显示功能 ([158b51c](https://github.com/Raven-tu/bili_live_bitrate_ug/commit/158b51cf3980b2b192ef627ec5461d76f6c9f963))
+
 ## [1.1.0](https://github.com/Raven-tu/bili_live_bitrate_ug/compare/v1.0.0...v1.1.0) (2025-05-26)
 
 

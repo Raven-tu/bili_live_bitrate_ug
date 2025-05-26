@@ -22,7 +22,7 @@
  * @property {function(): unknown} createTemplateProxy - 创建模板代理的方法。
  */
 
-const BITRATE_RECORD_MAX_LENGTH = 60 // 码率记录数组最大长度，用于计算平均码率。
+const BITRATE_RECORD_MAX_LENGTH = 30 // 码率记录数组最大长度，用于计算平均码率。
 const BYTES_TO_KBPS_FACTOR = 8 / 1024 // 将字节转换为千比特每秒 (Kbps) 的因子。
 
 /**
@@ -66,12 +66,13 @@ class VideoMetricsMonitor {
         /** @type {StreamInfo} */
         const streamInfo = args[0]
 
-        // console.debugger('streamInfo', streamInfo) // debugger 语句用于调试
+        // console.log('streamInfo', streamInfo) // debugger 语句用于调试
 
         const currentBitrate = streamInfo.realtimeInfo.videoNetworkActivity * BYTES_TO_KBPS_FACTOR
         const currentVideoSrc = streamInfo.mediaInfo.videoSrc
+        const currentBufferLength = streamInfo.realtimeInfo.videoBufferLength
 
-        this.#addBitrateSampleAndRecalculateAverage(currentBitrate, currentVideoSrc)
+        this.#addBitrateSampleAndRecalculateAverage(currentBitrate, currentVideoSrc, currentBufferLength)
 
         streamInfo.mediaInfo.fps = `[${this.#bitrateRecord.length}s] ${this.averageBitrate} Kbps. ${streamInfo.mediaInfo.fps}`
 
@@ -83,8 +84,11 @@ class VideoMetricsMonitor {
   /**
    * 添加新的码率样本并重新计算平均码率。
    * @param {number} newBitrate - 新的码率样本，单位：Kbps。
+   * @param {string} newVideoSrc - 新的视频源 URL。
+   * @param {number} [newBufferLength] - 新的视频缓冲长度，单位：秒 (s)。
+   * @private
    */
-  #addBitrateSampleAndRecalculateAverage(newBitrate, newVideoSrc) {
+  #addBitrateSampleAndRecalculateAverage(newBitrate, newVideoSrc, newBufferLength) {
     if (this.videoSrc.length === 0 || this.videoSrc !== newVideoSrc) {
       this.videoSrc = newVideoSrc
       this.#bitrateRecord = []
@@ -98,7 +102,7 @@ class VideoMetricsMonitor {
     }
 
     this.averageBitrate = (
-      this.#bitrateRecord.reduce((sum, bitrate) => sum + bitrate, 0) / this.#bitrateRecord.length
+      this.#bitrateRecord.reduce((sum, bitrate) => sum + bitrate, 0) / (this.#bitrateRecord.length + (newBufferLength || 0))
     ).toFixed(2)
   }
 }

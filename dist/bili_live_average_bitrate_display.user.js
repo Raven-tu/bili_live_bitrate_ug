@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩直播显示平均码率
 // @namespace    bili_live_average_bitrate_display
-// @version      1.0.0
+// @version      1.1.0
 // @author       Raven-tu
 // @description  A userscript to display the average bitrate of Bilibili live streams.
 // @license      MIT
@@ -28,7 +28,7 @@
   var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
   var _bitrateRecord, _panel, _VideoMetricsMonitor_instances, addBitrateSampleAndRecalculateAverage_fn;
   const name = "bili_live_average_bitrate_display";
-  const version = "1.0.0";
+  const version = "1.1.0";
   const Package = {
     name,
     version
@@ -36,7 +36,7 @@
   const PROJECT_NAME = Package.name;
   const PROJECT_VERSION = Package.version;
   var _unsafeWindow = /* @__PURE__ */ (() => typeof unsafeWindow != "undefined" ? unsafeWindow : void 0)();
-  const BITRATE_RECORD_MAX_LENGTH = 60;
+  const BITRATE_RECORD_MAX_LENGTH = 30;
   const BYTES_TO_KBPS_FACTOR = 8 / 1024;
   class VideoMetricsMonitor {
     /**
@@ -71,7 +71,8 @@
           const streamInfo = args[0];
           const currentBitrate = streamInfo.realtimeInfo.videoNetworkActivity * BYTES_TO_KBPS_FACTOR;
           const currentVideoSrc = streamInfo.mediaInfo.videoSrc;
-          __privateMethod(this, _VideoMetricsMonitor_instances, addBitrateSampleAndRecalculateAverage_fn).call(this, currentBitrate, currentVideoSrc);
+          const currentBufferLength = streamInfo.realtimeInfo.videoBufferLength;
+          __privateMethod(this, _VideoMetricsMonitor_instances, addBitrateSampleAndRecalculateAverage_fn).call(this, currentBitrate, currentVideoSrc, currentBufferLength);
           streamInfo.mediaInfo.fps = `[${__privateGet(this, _bitrateRecord).length}s] ${this.averageBitrate} Kbps. ${streamInfo.mediaInfo.fps}`;
           return Reflect.apply(target, thisArg, [streamInfo]);
         }
@@ -84,8 +85,11 @@
   /**
    * 添加新的码率样本并重新计算平均码率。
    * @param {number} newBitrate - 新的码率样本，单位：Kbps。
+   * @param {string} newVideoSrc - 新的视频源 URL。
+   * @param {number} [newBufferLength] - 新的视频缓冲长度，单位：秒 (s)。
+   * @private
    */
-  addBitrateSampleAndRecalculateAverage_fn = function(newBitrate, newVideoSrc) {
+  addBitrateSampleAndRecalculateAverage_fn = function(newBitrate, newVideoSrc, newBufferLength) {
     if (this.videoSrc.length === 0 || this.videoSrc !== newVideoSrc) {
       this.videoSrc = newVideoSrc;
       __privateSet(this, _bitrateRecord, []);
@@ -95,7 +99,7 @@
     if (__privateGet(this, _bitrateRecord).length > BITRATE_RECORD_MAX_LENGTH) {
       __privateGet(this, _bitrateRecord).pop();
     }
-    this.averageBitrate = (__privateGet(this, _bitrateRecord).reduce((sum, bitrate) => sum + bitrate, 0) / __privateGet(this, _bitrateRecord).length).toFixed(2);
+    this.averageBitrate = (__privateGet(this, _bitrateRecord).reduce((sum, bitrate) => sum + bitrate, 0) / (__privateGet(this, _bitrateRecord).length + (newBufferLength || 0))).toFixed(2);
   };
   function initializeScriptHook() {
     console.log(`${PROJECT_NAME} ${PROJECT_VERSION} - 已加载。`);
